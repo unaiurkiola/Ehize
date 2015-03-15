@@ -1,19 +1,19 @@
 
 public class Bazkidea {
   //atributos bazkideak
-    private String nombre;
-    private String apellidos;
-    private String direccion;
-    private String localidad;
-    private String telf_movil;
-    private String telf_fijo;
-    private String nacimiento;
-    private String dni;//Controlarlo
-    private String iban;
-    private String pin;
-    private String idioma;
-    private String fecha_ingreso;
-    private String grupo;
+    private String nombre="";
+    private String apellidos="";
+    private String direccion="";
+    private String localidad="";
+    private String telf_movil="";
+    private String telf_fijo="";
+    private String nacimiento="";
+    private String dni="";//Controlarlo
+    private String iban="";
+    private String pin="";
+    private String idioma="";
+    private String fecha_ingreso="";
+    private String grupo="";
     
     //Getter Setters
 	public String getNombre() {

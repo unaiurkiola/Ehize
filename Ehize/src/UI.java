@@ -1,25 +1,38 @@
+
+
+
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class UI extends JFrame {
-
+	private static Statement stmt;
 	private JPanel contentPane;
-	private JTextField txtNombre;
+	private static JTextField txtNombre;
 	private JTextField txtApellidos;
 	private JTextField txtMovil;
 	private JTextField txtFijo;
 	private JTextField txtDireccion;
 	private JTextField txtCorreo;
+	private static JTextField txtDni;
+	private static String letras;
+
 
 	/**
 	 * Launch the application.
@@ -30,6 +43,17 @@ public class UI extends JFrame {
 				try {
 					UI frame = new UI();
 					frame.setVisible(true);
+					
+					
+					GestorBD.conectar();
+					stmt=GestorBD.conexion();
+						//Se instancia la clase ControladorEntrada
+						
+						//CODIGO + BD
+					
+						
+
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,6 +65,8 @@ public class UI extends JFrame {
 	 * Create the frame.
 	 */
 	public UI() {
+		
+		//PARTE VISUAL
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 499, 445);
 		contentPane = new JPanel();
@@ -49,23 +75,23 @@ public class UI extends JFrame {
 		contentPane.setLayout(null);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(60, 11, 120, 29);
+		txtNombre.setBounds(60, 11, 175, 29);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(60, 51, 120, 29);
+		txtApellidos.setBounds(60, 51, 175, 29);
 		contentPane.add(txtApellidos);
 		
 		txtMovil = new JTextField();
 		txtMovil.setColumns(10);
-		txtMovil.setBounds(60, 91, 120, 29);
+		txtMovil.setBounds(60, 91, 175, 29);
 		contentPane.add(txtMovil);
 		
 		txtFijo = new JTextField();
 		txtFijo.setColumns(10);
-		txtFijo.setBounds(60, 133, 120, 29);
+		txtFijo.setBounds(60, 133, 175, 29);
 		contentPane.add(txtFijo);
 		
 		JLabel lblNombre = new JLabel("Nombre");
@@ -86,31 +112,72 @@ public class UI extends JFrame {
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(60, 173, 120, 29);
+		txtDireccion.setBounds(60, 173, 175, 29);
 		contentPane.add(txtDireccion);
 		
 		txtCorreo = new JTextField();
 		txtCorreo.setColumns(10);
-		txtCorreo.setBounds(60, 213, 120, 29);
+		txtCorreo.setBounds(60, 213, 175, 29);
 		contentPane.add(txtCorreo);
 		
 		JLabel lblDireccion = new JLabel("Direccion");
 		lblDireccion.setBounds(0, 173, 88, 29);
 		contentPane.add(lblDireccion);
 		
-		JLabel lblCorreo = new JLabel("Telf-Fijo");
+		JLabel lblCorreo = new JLabel("Correo");
 		lblCorreo.setBounds(0, 213, 88, 29);
 		contentPane.add(lblCorreo);
 		
-		JComboBox comboGrupo = new JComboBox();
-		comboGrupo.setBounds(203, 11, 200, 50);
+		
+		String[] array_grupo = { "Targeta verde", "Normal", "Solo caza mayor" };
+		JComboBox comboGrupo = new JComboBox(array_grupo);
+		comboGrupo.setBounds(245, 11, 228, 50);
+		comboGrupo.setSelectedIndex(1);
 		contentPane.add(comboGrupo);
 		
+		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(203, 72, 200, 50);
+		comboBox_1.setBounds(245, 72, 228, 48);
 		contentPane.add(comboBox_1);
 		
+		
+		
+		
 		JButton btnInsertar = new JButton("Insertar");
+		btnInsertar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+		//	boolean bol=validarDni(txtDni.getText());
+		//System.out.println(bol);
+				
+				
+				
+				
+				
+				
+				
+				txtNombre.getText();
+				txtApellidos.getText();
+				txtDireccion.getText();
+				txtMovil.getText();
+				txtFijo.getText();
+				txtCorreo.getText();
+				
+				
+				
+				
+				
+				
+				
+				
+				
+
+				
+				String cadena = "INSERT INTO Bazkideak VALUES ('"+txtNombre.getText()+"','"+txtApellidos.getText()+"','"+txtDireccion.getText()+"','"+	txtMovil.getText()+"','"+	txtFijo.getText()+"','"+	txtCorreo.getText()+"','"+	txtDni.getText()+"');"; //Sentencia de sql para insertar datos en la tabla 
+			GestorBD.consultaActualiza(cadena); //Ejecuta la orden sql
+			}
+		});
 		btnInsertar.setBounds(273, 357, 200, 37);
 		contentPane.add(btnInsertar);
 		
@@ -137,5 +204,26 @@ public class UI extends JFrame {
 		JCheckBox checkBox_4 = new JCheckBox("Cuota Sociedad");
 		checkBox_4.setBounds(136, 365, 106, 29);
 		contentPane.add(checkBox_4);
+		
+		txtDni = new JTextField();
+		txtDni.setText("Dni");
+		txtDni.setBounds(245, 131, 228, 29);
+		contentPane.add(txtDni);
+		txtDni.setColumns(10);
+		
+		
+		
+		
+		
+		
+		
+		
+	
 	}
+	
+	
+	
+
+
+	
 }
